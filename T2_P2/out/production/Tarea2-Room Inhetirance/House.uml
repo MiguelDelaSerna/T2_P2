@@ -1,0 +1,301 @@
+@startuml
+
+title Inheritance
+
+
+class Room {
+
+  - int width
+  - int height
+  - String color
+  
+  ~ Room(width: int, height: int, color: String)
+  
+  + getWidth(): int
+  + getHeight(): int
+  + getColor(): String
+}
+
+
+class House {
+  - Kitchen kitchen
+  - DiningRoom diningRoom
+  - LivingRoom livingRoom
+  - List<RestRoom>  restRooms
+  - List<BedRoom>  bedRooms
+  
+  ~ House(kitchen: Kitchen, diningRoom:DiningRoom, livingRoom:LivingRoom, restRooms: List<RestRooom>, livingRooms: List<LivingRoom>)
+  + getDiningRoom(): DiningRoom
+  + getLivingRoom(): LivingRoom
+  + getRestRooms(): List<RestRoom>
+  + getBedRooms(): List<BedRoom>
+  
+  + {static} builder(): HouseBuilder
+  
+}
+
+class HouseBuilder{
+  - Kitchen kitchen
+  - DiningRoom diningRoom
+  - LivingRoom livingRoom
+  - List<RestRoom>  restRooms
+  - List<BedRoom>  bedRooms
+
+  + kitchen(kitchen: Kitchen): HouseBuilder
+  + diningRoom(diningRoom: DiningRoom): HouseBuilder
+  + livingRoom(livingRoom: LivingRoom): HouseBuilder
+  + restRooms(restRooms: RestRooms): HouseBuilder
+  + bedRooms(bedRooms: BedRooms): HouseBuilder
+  
+  +build(): House ////
+
+}
+
+class Kitchen extends Room {
+  - boolean stove
+  - boolean sink
+  - int windows
+  - boolean refrigerator
+  - boolean oven
+  
+  ~ Kitchen(width: int, height: int, color: String, stove: boolean, sing: boolean, windows: int, refrigerator: boolean, oven: boolean)
+  
+  + getStove(): boolean
+  + getSink(): boolean
+  + getWindows(): int
+  + getRefrigerator(): boolean
+  + getOven(): boolean
+  
+  + {static} builder(): KitchenBuilder
+
+}
+
+class KitchenBuilder {
+  - int width
+  - int height
+  - String color
+  - boolean stove
+  - boolean sink
+  - int windows
+  - boolean refrigerator
+  - boolean oven
+  
+  + width(width: int): KitchenBuilder
+  + height(height: int): KitchenBuilder
+  + color(color: String): KitchenBuilder
+  + stove(stove: boolean): KitchenBuilder
+  + sink(sink: boolean): KitchenBuilder
+  + windows(windows: int): KitchenBuilder
+  + refrigerator(refrigerator: boolean): KitchenBuilder
+  + oven(oven: boolean): KitchenBuilder
+  
+  + build(): Kitchen
+}
+
+
+class LivingRoom extends Room {
+  - int windows
+  - boolean tv
+  - boolean homeTeather
+
+  ~ LivingRoom(width: int, height: int, color: String, windows: int, tv: boolean, homeTeather: boolean)  
+  + getWindows(): int
+  + getTv(): boolean
+  + getHomeTeather(): boolean
+  
+  + {static} builder(): LivingRoomBuilder
+  
+}
+
+class LivingRoomBuilder {
+  - int width
+  - int height
+  - String color
+  - int windows
+  - boolean tv
+  - int homeTeather
+
+  + width(width: int): LivingRoomBuilder
+  + height(height: int): LivingRoomBuilder
+  + color(color: String): LivingRoomBuilder
+  + windows(windows: int): LivingRoomBuilder
+  + tv(tv: boolean): LivingRoomBuilder
+  + homeTeather(homeTeather: boolean): LivingRoomBuilder
+  
+  + build(): LivingRoom
+}
+
+
+class DiningRoom extends Room {
+  - int windows
+  - boolean tv
+  - int chairsCapacity
+
+  ~ DiningRoom(width: int, height: int, color: String, windows: int, tv: boolean, chairsCapacity: int)
+  + getWindows(): int
+  + getTv(): boolean
+  + getChairsCapacity(): int
+  
+  + {static} builder(): DiningRoomBuilder
+}
+
+class DiningRoomBuilder {
+  - int width
+  - int height
+  - String color
+  - int windows
+  - boolean tv
+  - int chairsCapacity
+
+  + width(width: int): DiningRoomBuilder
+  + height(height: int): DiningRoomBuilder
+  + color(color: String): DiningRoomBuilder
+  + windows(windows: int): DiningRoomBuilder
+  + tv(tv: boolean): DiningRoomBuilder
+  + chairsCapacity(chairsCapacity: int): DiningRoomBuilder
+  
+  + build(): DiningRoom
+}
+
+class RestRoom extends Room {
+  - boolean showerCabin
+  
+  ~ RestRoom(width: int, height: int, color: String, showerCabin: boolean)
+  + getShowerCabin(): boolean
+  
+  + {static} builder(): RestRoomBuilder
+}
+
+class RestRoomBuilder {
+  - int width
+  - int height
+  - String color
+  - boolean showerCabin
+
+  + width(width: int): RestRoomBuilder
+  + height(height: int): RestRoomBuilder
+  + color(color: String): RestRoomBuilder
+  + showerCabin(showerCabin: boolean): RestRoomBuilder
+
+  + build(): RestRoom
+}
+
+class BedRoom extends Room {
+  - BedSize bedSize
+  - boolean tv;
+  
+  ~ BedRoom(width: int, height: int, color: String, bedSize: BedSize, tv: boolean)
+  + getBedSize()
+  + getTv()
+  
+  + {static} builder(): BedRoomBuilder
+}
+
+class BedRoomBuilder {
+  - int width
+  - int height
+  - String color
+  - BedSize bedSize
+  - boolean tv
+
+  + width(width: int): BedRoomBuilder
+  + height(height: int): BedRoomBuilder
+  + color(color: String): BedRoomBuilder
+  + bedSize(bedSize: BedSize): BedRoomBuilder
+  + tv(tv: boolean): BedRoomBuilder
+
+  + build(): BedRoom
+}
+
+class Yard extends Room {
+  - boolean grass
+
+  ~ Yard(width: int, height: int, color: String, grass: boolean)  
+  + getGrass(): boolean
+  
+  + {static} builder(): YardBuilder
+}
+
+class YardBuilder {
+  - int width
+  - int height
+  - String color
+  - boolean grass
+
+  + width(width: int): YardBuilder
+  + height(height: int): YardBuilder
+  + color(color: String): YardBuilder
+  + grass(grass: boolean): YardBuilder
+
+  + build(): Yard
+}
+
+class Neighborhood {
+  - List<Street> streets
+  - int gardens
+  - boolean basketballCourt
+  - boolean footballCourt
+  - boolean swimmingPool
+  
+  ~ Neighborhood(streets: List<Street>, gardens: int, basketballCourt: boolean, footballCourt: boolean, swimmingPool: boolean)
+  
+  + getStreets(): List<Street>
+  + getGardens(): int
+  + getBasketballCourt(): boolean
+  + getFootballCourt(): boolean
+  + getSwimmingPool(): boolean
+  
+  + {static} builder(): NeighborhoodBuilder
+}
+
+class NeighborhoodBuilder {
+
+  - List<Street> streets
+  - int gardens
+  - boolean basketballCourt
+  - boolean footballCourt
+  - boolean swimmingPool
+
+  + streets(streets: List<Street>): NeighborhoodBuilder
+  + gardens(gardens: int): NeighborhoodBuilder
+  + basketballCourt(basketballCourt: boolean): NeighborhoodBuilder
+  + footballCourt(footballCourt: boolean): NeighborhoodBuilder
+  + swimmingPool(swimmingPool: boolean): NeighborhoodBuilder
+
+  + build(): Neighborhood
+}
+
+
+class Street {
+  - String name
+  - TreeMap<Integer, House> houses 
+  
+  ~ Street(name: String, houses: TreeMap<Integer, House>)
+  
+  + getHouse(number: int): House
+  + getName(): string
+  + getHouses(): TreeMap<Integer, House>
+  
+  + {static} builder(): StreetBuilder
+}
+
+class StreetBuilder {
+  - String name
+  - TreeMap<Integer, House> houses 
+  
+  + name(name: String): StreetBuilder
+  + house(number: int, house: House): StreetBuilder
+  
+  + build(): Street
+}
+
+enum BedSize {
+  individual
+  matrimonial
+  queen
+  king
+}
+
+
+
+@enduml
